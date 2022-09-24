@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="atelier-show-container">
+		<section class="atelier-show-section">
+			<div class="atelier-show-article">
+				<h2>{{ atelier.title }}</h2>
+				<p class="price-pattern">{{ atelier.price }} € par personne</p>
+				<p>{{ atelier.description }}</p>
+				{% for image in atelier.images %}
+					<div>
+						<img class="atelier-img" src="/uploads/{{ image.imgname }}" alt="">
+					</div>
+				{% endfor %}
+			</div>
+				
+			<div>
+				{{ form_start(formAtelier) }} 
+
+					<h2>Choisissez votre créneau</h2>
+
+						{{ form_row(formAtelier.nb_participant, {'attr' : {'class': 'form-control'}}) }}
+						{{ form_row(formAtelier.horaire, {'attr' : {'class': 'form-control formDate'}})}}
+						{{ form_row(formAtelier.atelier, {'attr' : {'value': atelier.id }}) }}
+
+					<div class="atelier-form-div">
+						<p> 
+							- Si vous hésitez sur l'objet à réaliser, vous pouvez choisir " ATELIER À CHOISIR" et vous ferez votre choix sur place après la présentation des objets.<br>
+							- Dans tous les cas, un accompte de 30% vous est demandé pour confirmer votre réservation.<br>
+							- PARRAIN: Indiquez le code promo reçu avec votre coupon pour bénéficier de votre remise de 40€ (coupon à présenter obligatoirement le jour de l'atelier).
+						</p>
+
+						<h3 id="test">IMPORTANT !</h3>
+						<p> 
+							- CHAUSSURES FERMÉES OBLIGATOIRES ! Pour éviter tous risques de blessures en cas de chute de verre.<br>
+							- Afin d'éviter de salir votre tenue, un tablier vous est fourni.<br>
+							- Du gel hydroalcoolique et du savon seront mis à votre disposition.
+						</p>
+					</div>
+
+					{{ form_row(formAtelier.submit, {'attr' : {'class': 'btn btn-lg btn-primary float-right'}}) }}
+				{{ form_end(formAtelier) }}
+			</div>
+		</section>
+
+		<section>
+			<div>
+				<h2>Liste des commentaires</h2>
+				{% for comment in atelier.comments %}
+					{% if comment.parent == null %}
+						<div class="comment-block white-block">
+							<div>
+								<div class="head-comment">
+									<p>
+										<strong class="user-comment">Publié par {{ comment.user.lastname }}     </strong>
+
+										<span class="date-comment">le {{ comment.createdAt|date("d F o") }}</span>
+									</p>
+									{# <p>Le {{ comment.createdAt|date("d/m/y") }}</p> #}
+								</div>
+								<p class="user-content">{{ comment.content }}</p>
+							</div>
+						
+							{# On affiche les réponses #}
+								<div>
+							{% for reply in comment.replies %}
+									<div class="reply-block">
+									<p>Réponse publié par {{ comment.user.firstname }} le {{ comment.createdAt|date("d/m/o") }}</p>
+									<p>{{ reply.content }}</p>
+									</div>
+							{% endfor %}
+								</div>
+
+							{% if is_granted('ROLE_ADMIN') %}
+								<a class="btn btn-primary" href="#ajout-commentaire" data-reply data-id="{{ comment.id }}">Répondre</a>		
+							{% endif %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+
+			<div id="ajout-commentaire">
+				<h2>Ajouter un commentaire</h2>
+				{{ form_start(formComment) }}
+					{{ form_row(formComment.content)}}
+					{{ form_row(formComment.rgpd)}}
+					{{ form_row(formComment.parentid)}}
+					{{ form_row(formComment.envoyer)}}
+				{{ form_end(formComment) }}
+			</div>
+		</section>
+	</div>
+
+   	<div class="footer-margin"></div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+
+		let data_reply = document.querySelectorAll("[data-reply]")
+
+		data_reply.forEach(element => {
+			element.addEventListener("click", function(){
+				document.querySelector("#comments_parentid").value = this.dataset.id;
+			})
+		})
+
+		let test = document.querySelector('#test');
+		
+
+	</script>
+{% endblock %}

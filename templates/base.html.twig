@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/atelier.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/account.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/comment.css') }}">
+
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+			{# <link rel="preconnect » href="https://fonts.googleapis.com">
+			<link rel="preconnect » href="https://fonts.gstatic.com » crossorigin>
+			<link href="https://fonts.googleapis.com/css2? family=Nunito+Sans&display=swap » rel="feuille de style"> #}
+
+			<link rel="preconnect" href="https://fonts.googleapis.com">
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+			<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@500&family=Anek+Malayalam:wght@300;500&family=Nunito:wght@700&display=swap" rel="stylesheet">
+        {% endblock %}
+    </head>
+
+    <body class="test">
+		<header>
+
+			<nav class="menu">
+
+				<ul class="ul-menu">
+					<div id="mobile-cart-logo">
+						<img id="icon-burger" src="/assets/menu.png" alt="">
+						<li><img id="logo" src="/assets/logokifuz.png"></li>
+						<li id="mobile-cart"><a href="{{path('app_cart')}}">PANIER </a><img class="cart-icon" src="/assets/shopping.png" alt="image panier"><span class="cart-number">{{ app.session.get("panier")|length }}</span></li>
+					</div>
+
+						<div class="menu-text-link">
+								<img class="close" src="/assets/close.png" alt="">
+								<li><a href="{{path('app_home')}}">ACCUEIL</a></li>
+								<li><a href="{{path('app_atelier')}}">NOS ATELIERS D'INITIATIONS</a></li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li><a href="{{path('app_admin')}}">INTERFACE ADMINISTRATEUR</a></li>
+							{% else %}
+								<li><a href="{{path('app_contact')}}">CONTACT</a></li>
+							{% endif %}
+						
+							{% if app.user %}
+								<li><a href="{{path('app_account')}}">MON COMPTE</a></li>
+								<li><a href="{{path('app_logout')}}">DÉCONNEXION</a></li>
+								<li><a href="{{path('app_cart')}}">PANIER </a><img class="cart-icon" src="/assets/shopping.png" alt="image panier"><span class="cart-number">{{ app.session.get("panier")|length }}</span></li>
+							{% else %}
+								<li><a href="{{path('app_login')}}">CONNEXION</a></li>
+								<li><a href="{{path('app_register')}}">INSCRIPTION</a></li>
+								<li><a href="{{path('app_cart')}}">PANIER </a><img class="cart-icon" src="/assets/shopping.png" alt="image panier"><span class="cart-number">{{ app.session.get("panier")|length }}</span></li>
+							{% endif %}
+							</div>
+
+					</ul>
+
+			</nav>
+
+		</header>
+
+		<footer>
+			<section class="footer-section">
+				<div>
+					<img id="logo" src="/assets/logokifuz.png" alt="">
+				</div>
+
+				<p>Copyright ©. Tous droits réservés.</p>
+
+				<div>
+					<a href="{{path('app_legal')}}">Mentions légales</a>
+					<a href="{{path('app_confidentialite')}}">Politique de confidentialité</a>
+				</div>
+
+				<div>
+					<a href="https://fr-fr.facebook.com/sbcreation67/" target="_blank">
+						<img src="/assets/facebook.png" alt="">
+					</a>
+				</div>
+			</section>
+		</footer>
+
+		{% block body %}{% endblock %}
+		<script>
+			let icon = document.getElementById("icon-burger")
+			let close = document.querySelector(".close")
+			let menu = document.querySelector(".menu-text-link")
+
+			icon.addEventListener("click", function() {
+				menu.classList.toggle("active")
+			})
+
+			close.addEventListener("click", function() {
+				menu.classList.toggle("active")
+			})
+		</script>
+    </body>
+            {% block javascripts %}
+            {% endblock %}
+</html>

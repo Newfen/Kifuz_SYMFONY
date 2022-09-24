@@ -1,0 +1,165 @@
+*{
+    box-sizing: border-box;
+}
+
+.atelier-container{
+    width: 1200px;
+    margin: 3rem auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.atelier-article{
+    display: grid;
+    grid-template-rows: 200px 30px 75px 60px;
+    border: solid 1px rgb(195, 195, 195);
+    border-radius: 10px;
+}
+
+.atelier-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px rgb(195, 195, 195);
+    border-radius: 50%;
+}
+
+.atelier-description{
+    position: relative;
+    max-height: 72px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+    text-align: justify;
+    padding-right: 20px;
+    /* background-image: linear-gradient(to bottom, tranparent 12%, currentColor 30%); */
+}
+
+.atelier-description::after{
+    content: "...";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.atelier-article :nth-child(2n),
+.atelier-article :nth-child(3n),
+.atelier-article :nth-child(4n){
+    padding: 20px;
+}
+
+.atelier-article :nth-child(2n){
+    font-weight: bold;
+}
+
+.atelier-title-div{
+    position: relative;
+}
+
+.atelier-title-div h3{
+    position: absolute;
+    bottom: 25%;
+    text-align: center;
+    padding: 1rem;
+    color: white;
+}
+
+.atelier-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.img-opacity{
+    position: absolute;
+    top: 0;
+    /* bottom: 0; */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+}
+
+.button-container{
+    position: relative;
+    width: 100px;
+    height: 60px;
+    top: 10px;
+    background-color: #f5f5f5;
+    display: grid;
+    justify-content: center;
+    z-index: 2;
+    margin: auto;
+}
+
+
+/* --------------------------------- Partie Show ---------------------------------- */
+
+.atelier-show-section{
+    display: flex;
+    gap: 2rem;
+    margin-top: 100px;
+    text-align: justify;
+}
+
+.atelier-show-article{
+    width: 700px;
+}
+
+.atelier-show-container{
+    width: 1200px;
+    margin: auto;
+}
+
+.header-section{
+    width: 1200px;
+    color: white;
+    text-align: center;
+    display: grid;
+    gap: 2rem;
+}
+
+.header-section :first-child{
+    border: solid 1px white;
+    padding: 10px 20px;
+}
+
+.header-section :first-child,
+.header-section :nth-child(2n){
+    font-size: 2rem;
+}
+
+.header-section :nth-child(4n){
+    font-size: 1.3rem;
+    color: black;
+    background-color: rgb(255, 255, 255, 0.8);
+    width: fit-content;
+    margin: auto;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+
+.header-section :nth-child(3n){
+    font-size: 1.3rem;
+}
+
+.atelier-show-section{
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-bottom: 3rem;
+}
+
+.atelier-form-div{
+    background-color: #f5f5f5;
+    border-top: 2px solid black;
+    margin: 1rem 0;
+    padding: 1rem
+}
+
+.price-pattern{
+    font-size: 1.5rem;
+    font-weight: 700;
+}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+            <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+	 {% if items | length > 0 %} 
+		<div class="table-container">
+		<h2>Mon Panier</h2>
+			<div class="table-item">
+				<table class="cart">
+					<thead>
+						<tr>
+							<th scope="col">Supprimer</th>
+							<th scope="col">Atelier Choisit</th>
+							<th scope="col">Date & Heure</th>
+							<th scope="col">Prix Unitaire</th>
+							<th scope="col">Nombre de Participant</th>
+							<th scope="col">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+					{% set foo = "0" %} 
+			
+						{% for item in items %}
+							<tr> 
+								<td scope="row"><a href="{{ path('cart_remove', {'id' : item.programmation.id }) }}"><img class="admin-img" src="/assets/trash.png"></a></td> 
+								<td>{{ item.programmation.atelier.title }}</td>
+								<td>{{ item.programmation.creneau.jourformat }}</td>
+								<td>{{ item.programmation.atelier.price }} EUR</td>
+								<td>	
+									<div class="up-down-td">
+										<a href="{{ path('down', {'id' : item.programmation.id }) }}"><img class="up-down" src="/assets/minus.png" alt="image plus"></a>
+										<span class="nb-participant">{{ item.nb_participant }}</span>
+										<a href="{{ path('up', {'id' : item.programmation.id }) }}"><img class="up-down" src="/assets/up.png" alt="image moins"></a>
+									</div>
+								</td>
+								<td>{{ item.programmation.atelier.price * item.nb_participant }} EUR</td>
+								{% set foo = foo + item.programmation.atelier.price * item.nb_participant %} 
+							</tr>
+						{% endfor %} 			
+					</tbody>	
+				</table>
+			</div>
+		</div> 
+				<div class="total side-margin">
+					<p>SOUS-TOTAL :</p>
+					<p>{{ foo }} EUR</p>
+				</div>
+
+				<div class="cart-continued side-margin">
+					{% if app.user %}
+						<a href="{{path('app_checkout')}}">
+							<button type="submit" class="btn btn-lg btn-primary">Continuer</button>
+						</a>
+					{% else %}
+						<div>
+							Pour continuer,
+							<a href="{{path('app_login')}}">Connectez-vous</a>
+							ou
+							<a href="{{path('app_register')}}">Inscrivez-vous</a>
+						</div>
+					{% endif %}
+				</div>
+
+				<div class="footer-margin"></div>
+
+
+{% else %}
+	<h1 class="side-margin">Le panier est vide</h1>
+{% endif %}
+
+{% endblock %}

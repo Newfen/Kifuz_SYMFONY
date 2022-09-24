@@ -1,0 +1,16 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+
+		<div class="left-margin-admin">
+			{{ form_start(formCategory) }} 
+
+				<h2>Ajouter une Categorie</h2>
+
+					{{ form_row(formCategory.category_name, {'attr' : {'class': 'form-control mb-2'}}) }}
+					
+				    {{ form_row(formCategory.submit, {'attr' : {'class': 'btn btn-lg btn-primary'}}) }}
+
+			{{ form_end(formCategory) }}
+		</div>
+{% endblock %}

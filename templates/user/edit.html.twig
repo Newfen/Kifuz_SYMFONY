@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte Edition{% endblock %}
+
+{% block body %}
+    <h1>Modifiez vos informations</h1>
+
+    {{ form_start(formUser) }}
+        {{ form_row(formUser.lastname) }}
+        {{ form_row(formUser.firstname) }}
+        {{ form_row(formUser.email) }}
+        {{ form_row(formUser.phone) }}
+
+        <button type="submit" class="btn btn-lg btn-primary">Register</button>
+    {{ form_end(formUser) }}
+{% endblock %}

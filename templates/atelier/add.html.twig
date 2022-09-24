@@ -1,0 +1,34 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+
+		<div class="left-margin-admin">
+			{{ form_start(formAtelier) }} 
+
+				<h2>Ajouter un Atelier</h2>
+
+					{{ form_row(formAtelier.title, {'attr' : {'class': 'form-control mb-2'}}) }}
+					{{ form_row(formAtelier.description, {'attr' : {'class': 'form-control mb-2'}}) }}
+					{{ form_row(formAtelier.price, {'attr' : {'class': 'form-control mb-2'}}) }}
+					{{ form_row(formAtelier.category, {'attr' : {'class': 'form-control mb-2'}}) }}
+					
+					{# Vérifier si la route est "annonce_edit" on affiche les images  #}
+					{% if app.request.attributes.get('_route') == 'update_atelier' %}
+						<h2>Images</h2>
+						{% for image in atelier.images %}
+							<div>
+								<img class="atelier-img" src="/uploads/{{ image.imgname }}" alt="Image">
+								{# <a href="{{ path('annonces_delete_image', {id: image.id}) }}" 
+								   data-delete data-token="{{ csrf_token('delete' ~ image.id)}}">
+								</a> #}
+							</div>
+						{% endfor %}
+					{% endif %}
+					
+
+				    {{ form_row(formAtelier.submit, {'attr' : {'class': 'btn btn-lg btn-primary'}}) }}
+
+			{{ form_end(formAtelier) }}
+		</div>
+
+{% endblock %}

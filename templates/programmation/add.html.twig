@@ -1,0 +1,18 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+
+		<div class="left-margin-admin">
+			{{ form_start(formProgrammation) }} 
+
+				<h2>Ajouter une Programmation</h2>
+
+					{{ form_row(formProgrammation.creneau, {'attr' : {'class': 'form-control mb-2'}}) }}
+					{{ form_row(formProgrammation.atelier, {'attr' : {'class': 'form-control mb-2'}}) }}
+					
+				    {{ form_row(formProgrammation.submit, {'attr' : {'class': 'btn btn-lg btn-primary'}}) }}
+
+			{{ form_end(formProgrammation) }}
+		</div>
+
+{% endblock %}

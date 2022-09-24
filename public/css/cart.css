@@ -1,0 +1,70 @@
+.table-item{
+    background-color: white;
+    padding: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.table-container{
+    width: 1200px;
+    margin: auto;
+    color: rgb(75, 75, 75);
+}
+
+.cart{
+    width: 100%;
+}
+
+.cart thead th{
+    padding-bottom: 10px;
+    border-bottom: 3px solid rgb(235, 235, 235);
+}
+
+.cart tbody tr{
+    padding: 10px;
+    border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.cart tbody td{
+    padding: 10px 0;
+}
+
+tbody tr:last-child{
+    border: none;
+}
+
+.total{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 50px 0px 20px;
+    align-items: center;
+    font-weight: bold;
+}
+
+.total p:last-child{
+    padding-right: 10px;
+}
+
+.nb-participant{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.up-down{
+    width: 20px;
+}
+
+.up-down-td{
+    display: flex;
+    gap: 1rem;
+}
+
+.cart-continued{
+    text-align: end;
+    margin-top: 1rem;
+}

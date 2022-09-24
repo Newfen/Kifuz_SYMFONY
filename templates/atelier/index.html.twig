@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="header-background">
+		<div class="layer">
+			<section class="header-section">
+				<div>Ateliers d'Initiation à l'Art du Fusing Pour Tous</div>
+				<dt>C'EST QUOI ?</dt>
+				<dd>Lors d'un Atelier d'Initiation, vous apprendrez à créer vous-même un objet de votre choix en utilisant la technique du Fusing (technique de verre).
+					Pour plus de détails sur le déroulé d'une session, voir plus bas les explications et la vidéo.</dd>
+				<a href="#">En savoir plus sur nos ateliers</a>
+			</section>		
+		</div>
+	</div>
+
+	<div class="space"></div>
+
+	<div class="atelier-container">
+		{% for atelier in ateliers %}
+			<article class="atelier-article">
+
+				<div class="atelier-title-div">
+					{% for image in atelier.images %}
+						<img class="atelier-img" src="/uploads/{{ image.imgname }}" alt="">
+						<div class="img-opacity"></div>
+					{% endfor %}
+					<h3>{{ atelier.title }}</h3>
+				</div>
+
+				<div>{{ atelier.price }} € par personne</div>
+
+				<div class="atelier-description">{{ atelier.description }}</div>
+
+				<div class="button-container">
+					<a class="atelier-button" href=" {{ path('show_atelier', {'id': atelier.id }) }} ">
+						<img src="/assets/plus.png" alt="image plus">
+					</a>
+				</div>
+
+			</article>
+		{% endfor %}
+	</div>
+
+	<div class="footer-margin"></div>
+
+{% endblock %}

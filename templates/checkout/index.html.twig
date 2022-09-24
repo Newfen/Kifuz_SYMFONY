@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Hello CheckoutController!{% endblock %}
+
+{% block body %}
+
+	
+	<section class="side-margin checkout-container">
+		<section class="checkout-section">
+			<h2>Récapitulatif de ma commande</h2>
+			<dt class="title-checkout-size">KifuzSamuz :</dt>
+			<div class="white-block checkout-div">
+				<div class="social-div">
+					<p>Partager sur </p>
+					<div>
+						<img class="link-img" src="/assets/twitter.png" alt="">
+						<img class="link-img" src="/assets/facebook.png" alt="">
+						<img class="link-img" src="/assets/google-plus.png" alt="">
+					</div>
+				</div>
+				<div class="aside-checkout">
+					<img src="/assets/bernard.jpg" alt="image de bernard">
+					<div>
+						<dd>KifuzSamuz</dd>
+						<dd><img src="/assets/localisation.png" alt="image localisation">Hoerdt, FR </dd>
+						<dd><img src="/assets/mail.png" alt="">kifuzSamuz@gmail.com</dd>
+						<dd><img src="/assets/web.png" alt="">kifuzSamuz.fr</dd>
+						<dd><img src="/assets/phone.png" alt="">+33 6 51 88 65 58</dd>
+						<dd><img src="/assets/phone.png" alt="">+33 6 12 44 19 97</dd>
+					</div>
+				</div>
+				<p class="italic">Fabrication d'objets de décoration en verre fusing</p>
+				<p>Vente directe ou showroom à Hoerdt our sur-mesure à la demande</p>
+			</div>
+
+			<dt class="title-checkout-size">Où nous trouver ?</dt>
+			<div class="white-block checkout-div">
+				<dd>KifuzSamuz</dd>
+				<dd>25 Rue de la République</dd>
+				<dd>67720 Hoerdt - Grand Est, France</dd>
+				<dd>Localisation</dd>
+			</div>
+		</section>
+
+		<section class="checkout-section">
+			<dt class="title-checkout-size">Ma commande :</dt>
+			<div class="white-block checkout-div">
+				<table>
+					<thead>
+						<tr>
+							<th>Atelier Choisit</th>
+							<th>Nombre de participant</th>
+							<th>Prix</th>
+						</tr>
+					</thead>
+					<tbody>
+				{% set foo = "0" %} 
+				{% for item in items %}
+						<tr>
+							<td>{{ item.programmation.atelier.title }}</td>
+							<td>{{ item.nb_participant }}</td>
+							<td>{{ item.programmation.atelier.price }} EUR</td>
+						</tr>
+						{% set foo = foo + item.programmation.atelier.price * item.nb_participant %} 
+				{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="total mb-3">
+					<p>SOUS-TOTAL :</p>
+					<p>{{ foo }} EUR</p>
+			</div>
+			<button id="reserver" class="btn btn-lg btn-primary float-right">PAIEMENT</button>
+		</section>
+	
+	</section>
+
+	<div class="footer-margin"></div>
+
+
+{% endblock %}
+
+	{% block javascripts %}
+
+		<script src="https://js.stripe.com/v3/"></script>
+		<script type="text/javascript">
+
+			var stripe = Stripe("pk_test_zw5YfdtEOzCPcIKsgmS3JQz300g94L99qP");
+			var checkoutButton = document.getElementById("reserver");
+
+			checkoutButton.addEventListener("click", function (e) {
+				
+				e.preventDefault(); 
+				
+				fetch("/commande/create-session", {
+					method: "POST",
+				})
+
+				.then(function(response) {
+					return response.json();
+				})
+
+				.then(function(session) {
+					return stripe.redirectToCheckout({ sessionId: session.id});
+				})
+
+				.then(function(result) {
+
+					if (result.error) {
+						alert(result.error.message);
+					}
+				})
+				.catch(function (error) {
+					console.error("Error:", error);
+				})
+			})
+
+		</script>
+
+	{% endblock %}

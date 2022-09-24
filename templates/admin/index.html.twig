@@ -1,0 +1,32 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+
+    <div class="left-margin-admin">
+        <div class="d-flex justify-content-between">
+            <h4>Historique des réservations</h4>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Atelier</th>
+                    <th scope="col">Réserver pour le</th>
+                    <th scope="col">Nombre de participant</th>
+                    <th scope="col">Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.programmation.atelier.category.categoryname }}</td>
+                        <td>{{ reservation.programmation.creneau.jourFormat }}</td>
+                        <td>{{ reservation.nbParticipant }}</td>
+                        <td>{{ reservation.programmation.atelier.price * reservation.nbParticipant }} EUR</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock %}
